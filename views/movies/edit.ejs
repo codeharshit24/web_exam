@@ -1,0 +1,36 @@
+<%- include("../partials/header") %>
+
+<section class="panel auth-panel">
+  <div class="section-heading">
+    <p class="eyebrow">Update Movie</p>
+    <h1>Edit <%= movie.movieName %></h1>
+    <p>Movie name is locked as requested, while the remaining fields can be updated.</p>
+  </div>
+
+  <form action="/movie/<%= movie._id %>" method="POST" class="form-grid">
+    <label>
+      Movie Name
+      <input type="text" name="movieName" value="<%= movie.movieName %>" readonly />
+    </label>
+
+    <label>
+      Duration (minutes)
+      <input type="number" name="duration" value="<%= movie.duration %>" required />
+    </label>
+
+    <label>
+      Is Adult
+      <select name="isAdult" required>
+        <option value="true" <%= movie.isAdult ? 'selected' : '' %>>Yes</option>
+        <option value="false" <%= !movie.isAdult ? 'selected' : '' %>>No</option>
+      </select>
+    </label>
+
+    <div class="inline-actions">
+      <button type="submit" class="primary-btn submit-btn">Update Movie</button>
+      <a href="/movie" class="secondary-btn">Back to Movies</a>
+    </div>
+  </form>
+</section>
+
+<%- include("../partials/footer") %>

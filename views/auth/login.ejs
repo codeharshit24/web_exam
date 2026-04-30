@@ -1,0 +1,31 @@
+<%- include("../partials/header") %>
+
+<section class="panel auth-panel">
+  <div class="section-heading">
+    <p class="eyebrow">Secure Login</p>
+    <h1>Login</h1>
+    <p>Use Passport and session-based authentication to access the movie dashboard.</p>
+  </div>
+
+  <form action="/login" method="POST" class="form-grid compact">
+    <label>
+      Username
+      <input
+        type="text"
+        name="username"
+        value="<%= formData.username || '' %>"
+        placeholder="Enter username"
+        required
+      />
+    </label>
+
+    <label>
+      Password
+      <input type="password" name="password" placeholder="Enter password" required />
+    </label>
+
+    <button type="submit" class="primary-btn submit-btn">Login</button>
+  </form>
+</section>
+
+<%- include("../partials/footer") %>

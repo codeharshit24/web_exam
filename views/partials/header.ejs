@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %> | Web Exam</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <a href="/movie" class="brand">Web Exam</a>
+      <nav class="nav">
+        <% if (currentUser) { %>
+          <span class="user-badge"><%= currentUser.name %></span>
+          <form action="/logout" method="POST">
+            <button type="submit" class="nav-btn secondary-btn">Logout</button>
+          </form>
+        <% } else { %>
+          <a href="/register" class="nav-btn secondary-btn">Register</a>
+          <a href="/login" class="nav-btn primary-btn">Login</a>
+        <% } %>
+      </nav>
+    </header>
+
+    <main class="page-shell">
+      <% if (error) { %>
+        <div class="alert error"><%= error %></div>
+      <% } %>
+      <% if (success) { %>
+        <div class="alert success"><%= success %></div>
+      <% } %>

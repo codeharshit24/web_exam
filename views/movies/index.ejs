@@ -1,0 +1,93 @@
+<%- include("../partials/header") %>
+
+<section class="hero-card">
+  <p class="eyebrow">Question Set 13</p>
+  <h1>Movie Management Dashboard</h1>
+  <p>Create, read, update and delete movies with JOI validation and Passport authentication.</p>
+</section>
+
+<section class="content-grid">
+  <div class="panel">
+    <div class="section-heading">
+      <p class="eyebrow">Movie Form</p>
+      <h2>Add Movie</h2>
+      <p>The form uses the schema fields shown in the diagram.</p>
+    </div>
+
+    <form action="/movie" method="POST" class="form-grid">
+      <label>
+        Movie Name
+        <input
+          type="text"
+          name="movieName"
+          value="<%= formData.movieName || '' %>"
+          placeholder="Enter movie name"
+          required
+        />
+      </label>
+
+      <label>
+        Duration (minutes)
+        <input
+          type="number"
+          name="duration"
+          value="<%= formData.duration || '' %>"
+          placeholder="Enter duration"
+          required
+        />
+      </label>
+
+      <label>
+        Is Adult
+        <select name="isAdult" required>
+          <option value="">Select an option</option>
+          <option value="true" <%= formData.isAdult === 'true' ? 'selected' : '' %>>
+            Yes
+          </option>
+          <option value="false" <%= formData.isAdult === 'false' ? 'selected' : '' %>>
+            No
+          </option>
+        </select>
+      </label>
+
+      <button type="submit" class="primary-btn submit-btn">Save Movie</button>
+    </form>
+  </div>
+
+  <div class="panel">
+    <div class="section-heading">
+      <p class="eyebrow">Read Movies</p>
+      <h2>Movie List</h2>
+      <p>Only the movie name stays fixed during editing. All other movie fields can change.</p>
+    </div>
+
+    <% if (!movies.length) { %>
+      <div class="empty-state">
+        <h3>No movies added yet</h3>
+        <p>Create your first movie record using the form.</p>
+      </div>
+    <% } else { %>
+      <div class="movie-list">
+        <% movies.forEach((movie) => { %>
+          <article class="movie-card">
+            <div>
+              <h3><%= movie.movieName %></h3>
+              <p>Duration: <strong><%= movie.duration %> min</strong></p>
+              <p>Adult: <strong><%= movie.isAdult ? 'Yes' : 'No' %></strong></p>
+              <p>Created: <strong><%= movie.createdAt.toLocaleString() %></strong></p>
+            </div>
+
+            <div class="card-actions">
+              <a href="/movie/<%= movie._id %>/edit" class="secondary-btn">Edit</a>
+              <form action="/movie/<%= movie._id %>/delete" method="POST">
+                <button type="submit" class="danger-btn">Delete</button>
+              </form>
+            </div>
+          </article>
+        <% }) %>
+      </div>
+    <% } %>
+  </div>
+</section>
+
+<%- include("../partials/footer") %>

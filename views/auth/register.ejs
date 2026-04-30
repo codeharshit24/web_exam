@@ -1,0 +1,74 @@
+<%- include("../partials/header") %>
+
+<section class="panel auth-panel">
+  <div class="section-heading">
+    <p class="eyebrow">Passport Authentication</p>
+    <h1>Create User Account</h1>
+    <p>Register with the user schema fields and login credentials.</p>
+  </div>
+
+  <form action="/register" method="POST" class="form-grid">
+    <label>
+      Name
+      <input
+        type="text"
+        name="name"
+        value="<%= formData.name || '' %>"
+        placeholder="Enter full name"
+        required
+      />
+    </label>
+
+    <label>
+      Username
+      <input
+        type="text"
+        name="username"
+        value="<%= formData.username || '' %>"
+        placeholder="Choose a username"
+        required
+      />
+    </label>
+
+    <label>
+      Password
+      <input type="password" name="password" placeholder="Minimum 6 characters" required />
+    </label>
+
+    <label>
+      Gender
+      <input
+        type="text"
+        name="gender"
+        value="<%= formData.gender || '' %>"
+        placeholder="Enter gender"
+        required
+      />
+    </label>
+
+    <label>
+      Ticket Number
+      <input
+        type="number"
+        name="ticketNumber"
+        value="<%= formData.ticketNumber || '' %>"
+        placeholder="Enter ticket number"
+        required
+      />
+    </label>
+
+    <label>
+      Row
+      <input
+        type="text"
+        name="row"
+        value="<%= formData.row || '' %>"
+        placeholder="Enter row"
+      />
+    </label>
+
+    <button type="submit" class="primary-btn submit-btn">Register</button>
+  </form>
+</section>
+
+<%- include("../partials/footer") %>
