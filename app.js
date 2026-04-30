@@ -13,6 +13,7 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const isProduction = process.env.NODE_ENV === "production";
 
 connectDB();
 configurePassport(passport);
@@ -27,9 +28,19 @@ app.use(
   session({
     secret: process.env.SESSION_SECRET || "exam-secret",
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
+    cookie: {
+      httpOnly: true,
+      secure: isProduction,
+      sameSite: "lax",
+      maxAge: 1000 * 60 * 60 * 24
+    }
   })
 );
+
+if (isProduction) {
+  app.set("trust proxy", 1);
+}
 
 app.use(passport.initialize());
 app.use(passport.session());

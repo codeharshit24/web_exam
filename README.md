@@ -71,3 +71,20 @@ http://localhost:3000
 
 - `node_modules` and `package-lock.json` are ignored as requested.
 - MongoDB must be running locally, or `MONGODB_URI` should point to a working remote database.
+
+## Deploy Live On Render
+
+1. Push the repo to GitHub.
+2. Open [Render](https://render.com/) and create a new `Web Service`.
+3. Connect the GitHub repository `codeharshit24/web_exam`.
+4. Render will detect [`render.yaml`](/Users/harshitgautam/Desktop/web_exam/render.yaml) automatically.
+5. Add these environment variables in Render:
+
+```env
+MONGODB_URI=your-mongodb-connection-string
+SESSION_SECRET=your-random-secret
+```
+
+6. Deploy the service.
+
+After deployment, Render will give you a public URL where the app is live.
