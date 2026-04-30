@@ -6,6 +6,10 @@ const { movieSchema, movieUpdateSchema } = require("../config/validation");
 
 const router = express.Router();
 
+function getTotalMinutes(durationHours, durationMinutes) {
+  return durationHours * 60 + durationMinutes;
+}
+
 router.get("/", ensureAuthenticated, async (req, res, next) => {
   try {
     const movies = await Movie.find().sort({ createdAt: -1 });
@@ -30,7 +34,11 @@ router.post("/", ensureAuthenticated, async (req, res) => {
       throw new Error(error.details.map((detail) => detail.message).join(" "));
     }
 
-    await Movie.create(value);
+    await Movie.create({
+      movieName: value.movieName,
+      duration: getTotalMinutes(value.durationHours, value.durationMinutes),
+      isAdult: value.isAdult
+    });
     req.session.success = "Movie created successfully.";
     res.redirect("/movie");
   } catch (error) {
@@ -80,7 +88,7 @@ router.post("/:id", ensureAuthenticated, async (req, res) => {
       return res.redirect("/movie");
     }
 
-    movie.duration = value.duration;
+    movie.duration = getTotalMinutes(value.durationHours, value.durationMinutes);
     movie.isAdult = value.isAdult;
     await movie.save();
 
@@ -94,7 +102,8 @@ router.post("/:id", ensureAuthenticated, async (req, res) => {
       return res.redirect("/movie");
     }
 
-    movie.duration = req.body.duration;
+    movie.duration =
+      getTotalMinutes(Number(req.body.durationHours || 0), Number(req.body.durationMinutes || 0));
     movie.isAdult = req.body.isAdult === "true";
 
     res.status(400).render("movies/edit", {

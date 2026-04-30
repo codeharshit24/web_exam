@@ -16,8 +16,18 @@
             <button type="submit" class="nav-btn secondary-btn">Logout</button>
           </form>
         <% } else { %>
-          <a href="/register" class="nav-btn secondary-btn">Register</a>
-          <a href="/login" class="nav-btn primary-btn">Login</a>
+          <a
+            href="/register"
+            class="nav-btn <%= title === 'Register' ? 'primary-btn' : 'secondary-btn' %>"
+          >
+            Register
+          </a>
+          <a
+            href="/login"
+            class="nav-btn <%= title === 'Login' ? 'primary-btn' : 'secondary-btn' %>"
+          >
+            Login
+          </a>
         <% } %>
       </nav>
     </header>

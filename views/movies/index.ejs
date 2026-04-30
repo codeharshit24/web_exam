@@ -26,16 +26,36 @@
         />
       </label>
 
-      <label>
-        Duration (minutes)
-        <input
-          type="number"
-          name="duration"
-          value="<%= formData.duration || '' %>"
-          placeholder="Enter duration"
-          required
-        />
-      </label>
+      <div class="duration-grid">
+        <label>
+          Duration Hours
+          <input
+            type="number"
+            name="durationHours"
+            min="0"
+            step="1"
+            value="<%= formData.durationHours || '' %>"
+            placeholder="Hours"
+            oninput="if (this.value !== '' && Number(this.value) < 0) this.value = 0"
+            required
+          />
+        </label>
+
+        <label>
+          Duration Minutes
+          <input
+            type="number"
+            name="durationMinutes"
+            min="0"
+            max="59"
+            step="1"
+            value="<%= formData.durationMinutes || '' %>"
+            placeholder="Minutes"
+            oninput="if (this.value !== '' && Number(this.value) < 0) this.value = 0; if (this.value !== '' && Number(this.value) > 59) this.value = 59"
+            required
+          />
+        </label>
+      </div>
 
       <label>
         Is Adult
@@ -72,7 +92,10 @@
           <article class="movie-card">
             <div>
               <h3><%= movie.movieName %></h3>
-              <p>Duration: <strong><%= movie.duration %> min</strong></p>
+              <p>
+                Duration:
+                <strong><%= Math.floor(movie.duration / 60) %> hr <%= movie.duration % 60 %> min</strong>
+              </p>
               <p>Adult: <strong><%= movie.isAdult ? 'Yes' : 'No' %></strong></p>
               <p>Created: <strong><%= movie.createdAt.toLocaleString() %></strong></p>
             </div>

@@ -13,10 +13,34 @@
       <input type="text" name="movieName" value="<%= movie.movieName %>" readonly />
     </label>
 
-    <label>
-      Duration (minutes)
-      <input type="number" name="duration" value="<%= movie.duration %>" required />
-    </label>
+    <div class="duration-grid">
+      <label>
+        Duration Hours
+        <input
+          type="number"
+          name="durationHours"
+          min="0"
+          step="1"
+          value="<%= Math.floor(movie.duration / 60) %>"
+          oninput="if (this.value !== '' && Number(this.value) < 0) this.value = 0"
+          required
+        />
+      </label>
+
+      <label>
+        Duration Minutes
+        <input
+          type="number"
+          name="durationMinutes"
+          min="0"
+          max="59"
+          step="1"
+          value="<%= movie.duration % 60 %>"
+          oninput="if (this.value !== '' && Number(this.value) < 0) this.value = 0; if (this.value !== '' && Number(this.value) > 59) this.value = 59"
+          required
+        />
+      </label>
+    </div>
 
     <label>
       Is Adult
